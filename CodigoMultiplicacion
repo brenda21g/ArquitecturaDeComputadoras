@@ -1,0 +1,21 @@
+const int btn1 = 2;  // Botón 1
+const int btn2 = 3;  // Botón 2
+const int ledResultado = 8;  // LED que muestra la multiplicación
+const int ledIndicador = 9;  // LED que indica si hay un botón presionado
+
+void setup() {
+    pinMode(btn1, INPUT);
+    pinMode(btn2, INPUT);
+    pinMode(ledResultado, OUTPUT);
+    pinMode(ledIndicador, OUTPUT);
+}
+
+void loop() {
+    int bit1 = digitalRead(btn1);
+    int bit2 = digitalRead(btn2);
+    
+    int resultado = bit1 * bit2;  // Operación AND (multiplicación de bits)
+
+    digitalWrite(ledResultado, resultado);  // Enciende el LED si el resultado es 1
+    digitalWrite(ledIndicador, bit1 || bit2);  // Enciende si al menos un botón está presionado
+}
