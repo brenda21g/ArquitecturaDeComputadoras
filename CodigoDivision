@@ -1,0 +1,38 @@
+const int btnInfinito = 2;  // Botón del "infinito" (antes Dividendo A)
+const int btnIndefinido = 3; // Botón del "indefinido" (antes Divisor B)
+const int ledIndefinido = 8; // LED que indica división indefinida (0/0)
+const int ledInfinito = 9;   // LED que indica división infinita (1/0)
+const int ledDivision1 = 10; // LED que indica división 1 (0/1)
+const int ledDivision2 = 11; // LED que indica división 2 (1/1)
+int infinito = 0;
+int indefinido = 0;
+
+void setup() {
+    pinMode(btnInfinito, INPUT);
+    pinMode(btnIndefinido, INPUT);
+    pinMode(ledIndefinido, OUTPUT);
+    pinMode(ledInfinito, OUTPUT);
+    pinMode(ledDivision1, OUTPUT);
+    pinMode(ledDivision2, OUTPUT);
+}
+
+void loop() {
+    
+    infinito = digitalRead(btnInfinito);
+    indefinido = digitalRead(btnIndefinido);
+    // Apagar todos los LEDs antes de encender el correcto
+    digitalWrite(ledIndefinido, LOW);
+    digitalWrite(ledInfinito, LOW);
+    digitalWrite(ledDivision1, LOW);
+    digitalWrite(ledDivision2, LOW);
+
+    if (infinito == 0 && indefinido == 0) {
+        digitalWrite(ledIndefinido, HIGH);  // 0/0 → Indefinido
+    } else if (infinito == 1 && indefinido == 0) {
+        digitalWrite(ledInfinito, HIGH);  // 1/0 → Infinito
+    } else if (infinito == 0 && indefinido == 1) {
+        digitalWrite(ledDivision1, LOW);  // 0/1 → División 1 (0)
+    } else if (infinito == 1 && indefinido == 1) {
+        digitalWrite(ledDivision2, HIGH);  // 1/1 → División 2 (1)
+    }
+}
